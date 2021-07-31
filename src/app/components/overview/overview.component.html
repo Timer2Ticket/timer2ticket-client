@@ -1,0 +1,78 @@
+<div class="content-container">
+  <div class="content-centered">
+    <h1 class="custom-h1">
+      {{ errorCommunicatingWithCore ? 'Status unknown' : (isScheduled ? 'Sync is on' : 'Sync is off') }}
+    </h1>
+
+    <mat-icon id="sync-icon" fontSet="material-icons-outlined">
+      {{ errorCommunicatingWithCore ? 'sync_problem' : (isScheduled ? 'sync' : 'sync_disabled') }}
+    </mat-icon>
+
+    <button type="button" (click)="configSyncNow()">
+      Sync config objects now (projects, issues, ...)
+    </button>
+
+    <button type="button" (click)="timeEntrySyncNow()">
+      Sync time entries now
+    </button>
+
+    <section *ngIf="lastConfigJobLog || lastTimeEntriesJobLog" class="date-section">
+      <ng-container *ngIf="lastConfigJobLog">
+        <span>Last config sync job</span>
+        <span>
+          {{ utilities.dateFormat(lastConfigJobLog.scheduledDate) }}
+          <mat-icon *ngIf="lastConfigJobLog.status === 'scheduled' || lastConfigJobLog.status === 'running'"
+            class="icon-rotate" fontSet="material-icons-outlined" matTooltip="Scheduled or running"
+            #scheduledorrunningtooltip="matTooltip">
+            sync
+          </mat-icon>
+          <mat-icon *ngIf="lastConfigJobLog.status === 'successful'" fontSet="material-icons-outlined"
+            matTooltip="Succesfully completed" #successfultooltip="matTooltip">check</mat-icon>
+          <mat-icon *ngIf="lastConfigJobLog.status === 'unsuccessful'" fontSet="material-icons-outlined"
+            matTooltip="There was some error" #unsuccessfultooltip="matTooltip">error_outline
+          </mat-icon>
+        </span>
+      </ng-container>
+      <ng-container *ngIf="lastTimeEntriesJobLog">
+        <span>Last time entries sync job</span>
+        <span>
+          {{ utilities.dateFormat(lastTimeEntriesJobLog.scheduledDate) }}
+          <mat-icon *ngIf="lastTimeEntriesJobLog.status === 'scheduled' || lastTimeEntriesJobLog.status === 'running'"
+            class="icon-rotate" fontSet="material-icons-outlined" matTooltip="Scheduled or running"
+            #scheduledorrunningtooltip="matTooltip">
+            sync
+          </mat-icon>
+          <mat-icon *ngIf="lastTimeEntriesJobLog.status === 'successful'" fontSet="material-icons-outlined"
+            matTooltip="Succesfully completed" #successfultooltip="matTooltip">check
+          </mat-icon>
+          <mat-icon *ngIf="lastTimeEntriesJobLog.status === 'unsuccessful'" fontSet="material-icons-outlined"
+            matTooltip="There was some error" #unsuccessfultooltip="matTooltip">
+            error_outline
+          </mat-icon>
+        </span>
+      </ng-container>
+    </section>
+    <a *ngIf="jobLogs?.length > 0" id="more-logs-a" (click)="openJobLogs()">
+      More logs <mat-icon fontSet="material-icons-outlined">chevron_right</mat-icon>
+    </a>
+
+    <h2 class="custom-h2">How to correctly sync time entry</h2>
+    <section>
+      <ng-container *ngFor="let service of serviceHints">
+        <span><strong>{{ service.serviceName }}</strong></span>
+        <div [innerHtml]="service.timeEntriesSyncHint"></div>
+      </ng-container>
+    </section>
+
+    <button id="change-sync-btn" type="button" (click)="changeSync()">
+      {{ isScheduled ? 'Turn off sync' : 'Turn on sync' }}
+    </button>
+
+    <h2 class="custom-h2">Revisit configuration step</h2>
+    <div class="steps-container">
+      <a *ngFor="let step of reachableSteps" [routerLink]='["/" + step.route]'>
+        <span class="order-padding">{{ step.order }}</span> {{ step.label }}
+      </a>
+    </div>
+  </div>
+</div>

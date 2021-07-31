@@ -1,0 +1,19 @@
+<!-- loading symbol overlapping whole content -->
+<div id="loading-symbol-background" [hidden]="loadingHidden">
+  <div class="loading-symbol">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+<main>
+  <header>
+    <a [routerLink]='["/overview"]'>Timer2Ticket</a>
+    <app-menu *ngIf="user"></app-menu>
+  </header>
+  <router-outlet></router-outlet>
+  <footer>
+    Powered by <a class="jagulogo-jagu-line" href="http://jagu.cz/">Jagu s.r.o.</a>
+  </footer>
+</main>
