@@ -1,0 +1,16 @@
+<div class="content-container">
+  <div class="content-centered">
+    <h1 class="custom-h1">Password reset</h1>
+    <form>
+      <label for="email">Email *</label>
+      <div class="element-hint-below">
+        <input id="email" name="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+          placeholder="your@email.com" [(ngModel)]="username" required #email="ngModel" />
+        <span>Enter the email you use to log in to the system. You will then receive a link to reset your
+          password.</span>
+      </div>
+      <button type="submit" (click)="sendResetPasswordRequest()">
+        Submit <mat-icon fontSet="material-icons-outlined">forward_to_inbox</mat-icon></button>
+    </form>
+  </div>
+</div>

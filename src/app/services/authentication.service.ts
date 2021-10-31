@@ -29,4 +29,29 @@ export class AuthenticationService {
         })
       );
   }
+
+  resetPasswordRequest(username: string): Observable<Record<string, unknown>> {
+    console.log("***** USER ***** reset password request");
+    return this._http.post<Record<string, unknown>>(`${this._authenticationApiUrl}/reset`, { username: username })
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          // rethrow status back to the component
+          return throwError(error);
+        })
+      );
+  }
+
+  resetPassword(resetPasswordToken: string, newPassword: string, newPasswordAgain: string): Observable<Record<string, unknown>> {
+    console.log("***** USER ***** reset password");
+    return this._http.post<Record<string, unknown>>(`${this._authenticationApiUrl}/reset/${resetPasswordToken}`,
+      { newPassword: newPassword, newPasswordAgain: newPasswordAgain })
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          // rethrow status back to the component
+          return throwError(error);
+        })
+      );
+  }
 }

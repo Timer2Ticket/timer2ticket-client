@@ -10,6 +10,9 @@ import { ScheduleComponent } from './components/config-steps/schedule/schedule.c
 import { ServicesChooseComponent } from './components/config-steps/services-choose/services-choose.component';
 import { TogglTrackConfigurationComponent } from './components/config-steps/toggl-track-configuration/toggl-track-configuration.component';
 import { OverviewComponent } from './components/overview/overview.component';
+import { ResetPasswordDoneComponent } from './components/reset-password/done/done.component';
+import { ResetPasswordRequestComponent } from './components/reset-password/request/request.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { AuthGuard } from './guards/auth.guard';
 import { OverviewGuard } from './guards/overview.guard';
 
@@ -17,6 +20,9 @@ const routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] },
+  { path: 'reset-password/request', component: ResetPasswordRequestComponent },
+  { path: 'reset-password/done', component: ResetPasswordDoneComponent },
+  { path: 'reset-password/:token', component: ResetPasswordComponent },
   { path: 'config-steps/services-choose', component: ServicesChooseComponent, canActivate: [AuthGuard] },
   { path: 'config-steps/redmine-configuration', component: RedmineConfigurationComponent, canActivate: [AuthGuard] },
   { path: 'config-steps/toggl-track-configuration', component: TogglTrackConfigurationComponent, canActivate: [AuthGuard] },

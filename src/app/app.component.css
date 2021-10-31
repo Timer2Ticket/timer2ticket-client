@@ -13,8 +13,8 @@ header, footer {
   -webkit-box-shadow: 0px 1px 8px -2px var(--text-color);
 }
 
-header {
-  position: fixed;
+header, footer {
+  position: relative;
 }
 
 footer {

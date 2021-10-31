@@ -29,6 +29,9 @@ import { JobService } from './services/job.service';
 import { JobLogsModalComponent } from './components/overview/job-logs/job-logs-modal.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ChangePasswordComponent } from './components/auth/change-password/change-password.component';
+import { ResetPasswordDoneComponent } from './components/reset-password/done/done.component';
+import { ResetPasswordRequestComponent } from './components/reset-password/request/request.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +49,9 @@ import { ChangePasswordComponent } from './components/auth/change-password/chang
     JobLogsModalComponent,
     MenuComponent,
     ChangePasswordComponent,
+    ResetPasswordDoneComponent,
+    ResetPasswordRequestComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     CommonModule,

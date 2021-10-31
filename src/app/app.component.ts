@@ -25,9 +25,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
   ) { }
 
   ngOnInit(): void {
-    //redirect to login right away
-    this.redirectToLogin();
-
     this.$_userSubscription = this._appData.user.subscribe((user) => {
       this.user = user;
     });
@@ -41,10 +38,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
 
   ngAfterContentInit() {
     this.loadingHidden = true;
-  }
-
-  private redirectToLogin(): void {
-    this.router.navigate(['login'], { replaceUrl: true });
   }
 
   /**

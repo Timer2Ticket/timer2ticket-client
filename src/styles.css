@@ -30,6 +30,7 @@ body {
   font-family: Montserrat Medium, Arial, sans-serif;
   font-size: clamp(2em, 10vw, 4.5em);
   text-align: center;
+  line-height: normal;
 }
 
 .mat-h2, .mat-title, .mat-typography h2 {
@@ -149,11 +150,10 @@ a {
 .content-container {
   min-width: 100%;
   /* 100% minus header height */
-  min-height: calc(100% - (1.9em + 1.6vw));
+  min-height: calc(100vh - 2 * (1.9em + 1.2vw));
   display: flex;
   justify-content: center;
   /* at least same as header => height: calc(1.9em + 1.6vw); */
-  padding-top: calc(3.4em + 1.6vw);
 }
 
 .content-centered {
@@ -246,6 +246,7 @@ form label {
 .icon-rotate {
   animation: rotate 1.5s linear infinite;
 }
+
 @keyframes rotate {
   to {
     transform: rotate(-360deg);
