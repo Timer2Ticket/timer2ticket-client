@@ -1,23 +1,21 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { AppComponent } from 'src/app/app.component';
 import { RegistrationService } from 'src/app/services/registration.service';
 
 @Component({
-  selector: 'app-registration',
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.css']
+  selector: 'app-registration-complete',
+  templateUrl: './registration-complete.component.html',
+  styleUrls: ['./registration-complete.component.css']
 })
-export class RegistrationComponent implements OnDestroy {
+export class RegistrationCompleteComponent implements OnInit {
+
+  public registrationToken = '';
 
   public preRegistratedUser = {
-    username: '',
     password: '',
     passwordAgain: '',
   };
-
-  private $_isRegistrationOkSubscription: Subscription;
 
   constructor(
     private _registrationService: RegistrationService,
@@ -25,8 +23,19 @@ export class RegistrationComponent implements OnDestroy {
     public app: AppComponent,
   ) { }
 
-  ngOnDestroy(): void {
-    this.$_isRegistrationOkSubscription?.unsubscribe();
+  ngOnInit(): void {
+    const urlSplitted = this._router.url.split('/');
+
+    // firstly, try to grab token from url
+    if (urlSplitted.length === 3 && urlSplitted[urlSplitted.length - 1].length === 24) {
+      // token from url should have 24 characters
+      this.registrationToken = urlSplitted[urlSplitted.length - 1];
+    }
+
+    // should be filled
+    if (this.registrationToken === '') {
+      this._router.navigate(['/'], { replaceUrl: true });
+    }
   }
 
   register(): void {
@@ -34,15 +43,11 @@ export class RegistrationComponent implements OnDestroy {
       this.app.buildNotification('Passwords are not the same.');
     } else {
       this.app.showLoading();
-      this.$_isRegistrationOkSubscription = this._registrationService.registrate(
-        this.preRegistratedUser.username,
+      this._registrationService.completeRegistration(
+        this.registrationToken,
         this.preRegistratedUser.password,
         this.preRegistratedUser.passwordAgain,
       ).subscribe(() => {
-
-        localStorage.rememberCredentials = true;
-        localStorage.username = this.preRegistratedUser.username;
-
         this.redirect();
         this.app.hideLoading();
         this.app.buildNotification('Successfully registrated. Please log in to continue.');
@@ -52,6 +57,8 @@ export class RegistrationComponent implements OnDestroy {
           this.app.buildNotification('User with this email already exists.');
         } else if (errorStatus === 400) {
           this.app.buildNotification('Passwords are not the same.');
+        } else if (errorStatus === 404) {
+          this.app.buildNotification('Link is incorrect or has expired or something similar happened.');
         } else {
           this.app.buildNotification('Server did not respond. Try again please.');
         }

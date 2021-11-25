@@ -1,0 +1,14 @@
+<div class="content-container">
+  <div class="content-centered">
+    <p class="above-h1-text">Fill in the email address to which you will receive a message with a link through which you can then proceed.</p>
+    <h1>Registration</h1>
+    <form>
+      <label for="email">Email *</label>
+      <input id="email" name="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+        placeholder="your@email.com" [(ngModel)]="username" required #email="ngModel" />
+      <button type="submit" (click)="register()" [disabled]="!email.valid">
+        Register <mat-icon fontSet="material-icons-outlined">how_to_reg</mat-icon></button>
+      <a [routerLink]='["/"]'>Cancel <mat-icon fontSet="material-icons-outlined">close</mat-icon></a>
+    </form>
+  </div>
+</div>

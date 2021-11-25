@@ -24,11 +24,9 @@ export class ResetPasswordComponent implements OnInit {
   ngOnInit(): void {
     const urlSplitted = this._router.url.split('/');
 
-    console.log(urlSplitted)
-
-    // firstly, try to grab identificationCode from url
+    // firstly, try to grab token from url
     if (urlSplitted.length === 3 && urlSplitted[urlSplitted.length - 1].length === 24) {
-      // code from url should have 16 characters
+      // token from url should have 24 characters
       this.resetPasswordToken = urlSplitted[urlSplitted.length - 1];
     }
 

@@ -3,7 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { ChangePasswordComponent } from './components/auth/change-password/change-password.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { LogoutComponent } from './components/auth/logout/logout.component';
-import { RegistrationComponent } from './components/auth/registration/registration.component';
+import { RegistrationRequestDoneComponent } from './components/auth/registration/done/done.component';
+import { RegistrationCompleteComponent } from './components/auth/registration/registration-complete.component';
+import { RegistrationRequestComponent } from './components/auth/registration/request/registration.component';
 import { ConfirmationComponent } from './components/config-steps/confirmation/confirmation.component';
 import { RedmineConfigurationComponent } from './components/config-steps/redmine-configuration/redmine-configuration.component';
 import { ScheduleComponent } from './components/config-steps/schedule/schedule.component';
@@ -17,7 +19,9 @@ import { AuthGuard } from './guards/auth.guard';
 import { OverviewGuard } from './guards/overview.guard';
 
 const routes = [
-  { path: 'registration', component: RegistrationComponent },
+  { path: 'registration/request', component: RegistrationRequestComponent },
+  { path: 'registration/done', component: RegistrationRequestDoneComponent },
+  { path: 'registration/:token', component: RegistrationCompleteComponent },
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] },
   { path: 'reset-password/request', component: ResetPasswordRequestComponent },

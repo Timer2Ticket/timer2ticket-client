@@ -1,10 +1,8 @@
 <div class="content-container">
   <div class="content-centered">
-    <h1>Registration</h1>
+    <p class="above-h1-text">Please set your password to complete your registration.</p>
+    <h1>Complete your registration</h1>
     <form>
-      <label for="email">Email *</label>
-      <input id="email" name="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-        placeholder="your@email.com" [(ngModel)]="preRegistratedUser.username" required #email="ngModel" />
       <!-- password at least 8 characters, at least one number -->
       <label for="password">Password *</label>
       <div class="element-hint-below">
@@ -18,9 +16,9 @@
           required #passwordAgain="ngModel" pattern="(?=.*\d)(?=.*[a-z,A-Z]).{8,}">
         <span>Fill in your password again.</span>
       </div>
-      <button type="submit" (click)="register()" [disabled]="!email.valid || !password.valid || !passwordAgain.valid">
-        Register <mat-icon fontSet="material-icons-outlined">how_to_reg</mat-icon></button>
-      <a [routerLink]='["/login"]'>Cancel <mat-icon fontSet="material-icons-outlined">close</mat-icon></a>
+      <button type="submit" (click)="register()" [disabled]="!password.valid || !passwordAgain.valid">
+        Complete registration <mat-icon fontSet="material-icons-outlined">how_to_reg</mat-icon></button>
+      <a [routerLink]='["/"]'>Cancel <mat-icon fontSet="material-icons-outlined">close</mat-icon></a>
     </form>
   </div>
 </div>

@@ -13,11 +13,25 @@ export class RegistrationService {
     private _http: HttpClient,
   ) { }
 
-  registrate(username: string, password: string, passwordAgain: string): Observable<{}> {
-    console.log("***** USER ***** registrate");
+  registerUsername(username: string): Observable<{}> {
+    console.log("***** USER ***** register");
     return this._http.post<{}>(this._registrationApiUrl,
       {
         username: username,
+      })
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          // rethrow status back to the component
+          return throwError(error);
+        })
+      );
+  }
+
+  completeRegistration(token: string, password: string, passwordAgain: string): Observable<{}> {
+    console.log("***** USER ***** complete-registration");
+    return this._http.post<{}>(`${this._registrationApiUrl}/${token}`,
+      {
         password: password,
         passwordAgain: passwordAgain,
       })

@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { UserService } from './services/user.service';
 import { LoginComponent } from './components/auth/login/login.component';
 import { LogoutComponent } from './components/auth/logout/logout.component';
-import { RegistrationComponent } from './components/auth/registration/registration.component';
 import { AppData } from './singletons/app-data';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -32,13 +31,18 @@ import { ChangePasswordComponent } from './components/auth/change-password/chang
 import { ResetPasswordDoneComponent } from './components/reset-password/done/done.component';
 import { ResetPasswordRequestComponent } from './components/reset-password/request/request.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { RegistrationRequestComponent } from './components/auth/registration/request/registration.component';
+import { RegistrationCompleteComponent } from './components/auth/registration/registration-complete.component';
+import { RegistrationRequestDoneComponent } from './components/auth/registration/done/done.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     LogoutComponent,
-    RegistrationComponent,
+    RegistrationRequestComponent,
+    RegistrationRequestDoneComponent,
+    RegistrationCompleteComponent,
     ConfirmDialogComponent,
     ServicesChooseComponent,
     OverviewComponent,
