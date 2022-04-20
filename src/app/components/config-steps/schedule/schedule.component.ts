@@ -25,7 +25,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   public steps;
 
-  public everySchedules: { label: string, schedule: string }[];
+  public everySchedules: { label: string, schedule: string, pattern: RegExp }[];
 
   public confChosenEveryday: boolean;
   public confChosenMonday: boolean;
@@ -36,7 +36,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   public confChosenSaturday: boolean;
   public confChosenSunday: boolean;
 
-  public confEvery: { label: string, schedule: string };
+  public confEvery: { label: string, schedule: string, pattern: RegExp };
   public confAt: string;
   public showConfEveryDetail: boolean;
   public showConfAt: boolean;
@@ -50,18 +50,19 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   public timeEntriesChosenSaturday: boolean;
   public timeEntriesChosenSunday: boolean;
 
-  public timeEntriesEvery: { label: string, schedule: string };
+  public timeEntriesEvery: { label: string, schedule: string, pattern: RegExp };
   public timeEntriesAt: string;
   public showTimeEntriesEveryDetail: boolean;
   public showTimeEntriesAt: boolean;
 
   ngOnInit(): void {
+    // pattern is needed, because server (api) can randomize the minute part of the schedule
     this.everySchedules = [];
-    this.everySchedules.push({ label: '24 hours', schedule: '0 */24 * * *' });
-    this.everySchedules.push({ label: '12 hours', schedule: '0 */12 * * *' });
-    this.everySchedules.push({ label: '6 hours', schedule: '0 */6 * * *' });
-    this.everySchedules.push({ label: '3 hours', schedule: '0 */3 * * *' });
-    this.everySchedules.push({ label: '1 hour', schedule: '0 */1 * * *' });
+    this.everySchedules.push({ label: '24 hours', schedule: '0 */24 * * *', pattern: /^[0-5]?[0-9] \*\/24 \* \* \*$/ });
+    this.everySchedules.push({ label: '12 hours', schedule: '0 */12 * * *', pattern: /^[0-5]?[0-9] \*\/12 \* \* \*$/ });
+    this.everySchedules.push({ label: '6 hours', schedule: '0 */6 * * *', pattern: /^[0-5]?[0-9] \*\/6 \* \* \*$/ });
+    this.everySchedules.push({ label: '3 hours', schedule: '0 */3 * * *', pattern: /^[0-5]?[0-9] \*\/3 \* \* \*$/ });
+    this.everySchedules.push({ label: '1 hour', schedule: '0 */1 * * *', pattern: /^[0-5]?[0-9] \*\/1 \* \* \*$/ });
 
     this.$_userToEditSubscription = this._appData.userToEdit.subscribe(user => {
       this.user = user;
@@ -232,6 +233,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     // config schedule
     let confSchedule = '';
     if (this.confChosenEveryday) {
+      // note: every* schedule will be randomized (minute) by the api server
       confSchedule = this.confEvery.schedule;
     } else {
       let minutes = this.confAt.substr(3, 2);
@@ -254,6 +256,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     // time entries schedule
     let timeEntriesSchedule = '';
     if (this.timeEntriesChosenEveryday) {
+      // note: every* schedule will be randomized (minute) by the api server
       timeEntriesSchedule = this.timeEntriesEvery.schedule;
     } else {
       let minutes = this.timeEntriesAt.substr(3, 2);
@@ -286,7 +289,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
       this.confChosenSaturday = true;
       this.confChosenSunday = true;
 
-      this.confEvery = this.everySchedules.find(schedule => schedule.schedule === configSchedule);
+      this.confEvery = this.everySchedules.find(schedule => schedule.pattern.test(configSchedule));
       this.showConfEveryDetail = true;
       this.confAt = '18:00';
       this.showConfAt = false;
@@ -326,7 +329,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
       this.timeEntriesChosenSaturday = true;
       this.timeEntriesChosenSunday = true;
 
-      this.timeEntriesEvery = this.everySchedules.find(schedule => schedule.schedule === timeEntriesSchedule);
+      this.timeEntriesEvery = this.everySchedules.find(schedule => schedule.pattern.test(timeEntriesSchedule));
       this.showTimeEntriesEveryDetail = true;
       this.timeEntriesAt = '18:00';
       this.showTimeEntriesAt = false;
