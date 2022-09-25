@@ -131,5 +131,7 @@
       }
     }
   },
-  "defaultProject": "timer2ticket-client"
+  "cli": {
+    "analytics": false
+  }
 }
