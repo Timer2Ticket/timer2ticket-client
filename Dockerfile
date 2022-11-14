@@ -6,7 +6,7 @@ COPY . /app
 WORKDIR /app
 
 # Build the project and copy the files
-RUN npm install && npm run ng build -- --deploy-url=/ --prod
+RUN npm install && npm run ng build -- --deploy-url=/ --configuration=production
 
 FROM nginx:alpine
 
