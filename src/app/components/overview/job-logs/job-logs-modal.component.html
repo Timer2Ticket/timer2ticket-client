@@ -42,7 +42,7 @@
       <mat-icon *ngIf="jobLog.status === 'successful'" fontSet="material-icons-outlined"
         matTooltip="Succesfully completed" #successfultooltip="matTooltip">check</mat-icon>
       <mat-icon *ngIf="jobLog.status === 'unsuccessful'" fontSet="material-icons-outlined"
-        matTooltip="There was some error" #unsuccessfultooltip="matTooltip">error_outline</mat-icon>
+        [matTooltip]="getDistinctErrorFields(jobLog.errors).join(', ')">error_outline</mat-icon>
     </div>
   </div>
 </section>

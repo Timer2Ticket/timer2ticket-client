@@ -15,4 +15,16 @@ export class JobLogsModalComponent {
     public dialogRef: MatDialogRef<JobLogsModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data) { }
 
+  getDistinctErrorFields(errors: any[]): string[] {
+    return Array.from(
+      new Set(
+        errors
+          .map(error => {
+            return error.specification
+          }) // Assuming each error has a 'data' field
+          .filter(data => data !== undefined) // Remove undefined values
+      )
+    );
+  }
+
 }
