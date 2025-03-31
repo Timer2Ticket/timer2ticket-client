@@ -16,7 +16,7 @@ export class JobLogsModalComponent {
     @Inject(MAT_DIALOG_DATA) public data) { }
 
   getDistinctErrorFields(errors: any[]): string[] {
-    return Array.from(
+    const arr = Array.from(
       new Set(
         errors
           .map(error => {
@@ -25,6 +25,7 @@ export class JobLogsModalComponent {
           .filter(data => data !== undefined) // Remove undefined values
       )
     );
+    return arr.length === 0 ? ["There was some error"] : arr;
   }
 
 }
