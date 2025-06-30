@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Utilities } from 'src/app/utilities/utilities';
+import {JobLog} from "../../../models/jobLog";
 
 @Component({
   selector: 'app-job-logs-modal',
@@ -15,17 +16,5 @@ export class JobLogsModalComponent {
     public dialogRef: MatDialogRef<JobLogsModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data) { }
 
-  getDistinctErrorFields(errors: any[]): string[] {
-    const arr = Array.from(
-      new Set(
-        errors
-          .map(error => {
-            return error.specification
-          }) // Assuming each error has a 'data' field
-          .filter(data => data !== undefined) // Remove undefined values
-      )
-    );
-    return arr.length === 0 ? ["There was some error"] : arr;
-  }
-
+  protected readonly JobLog = JobLog;
 }

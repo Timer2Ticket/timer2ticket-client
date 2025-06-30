@@ -26,10 +26,12 @@
             #scheduledorrunningtooltip="matTooltip">
             sync
           </mat-icon>
-          <mat-icon *ngIf="lastConfigJobLog.status === 'successful'" fontSet="material-icons-outlined"
-            matTooltip="Succesfully completed" #successfultooltip="matTooltip">check</mat-icon>
-          <mat-icon *ngIf="lastConfigJobLog.status === 'unsuccessful'" fontSet="material-icons-outlined"
-            matTooltip="There was some error" #unsuccessfultooltip="matTooltip">error_outline
+          <mat-icon *ngIf="lastConfigJobLog.status === 'successful' && lastConfigJobLog.errors.length === 0" fontSet="material-icons-outlined"
+                    matTooltip="Succesfully completed" #successfultooltip="matTooltip">check
+          </mat-icon>
+          <mat-icon *ngIf="lastConfigJobLog.status === 'unsuccessful' || lastConfigJobLog.errors.length > 0" fontSet="material-icons-outlined"
+                    [matTooltip]="JobLog.getDistinctErrorFields(this.lastConfigJobLog)" #unsuccessfultooltip="matTooltip">
+            error_outline
           </mat-icon>
         </span>
       </ng-container>
@@ -42,11 +44,11 @@
             #scheduledorrunningtooltip="matTooltip">
             sync
           </mat-icon>
-          <mat-icon *ngIf="lastTimeEntriesJobLog.status === 'successful'" fontSet="material-icons-outlined"
+          <mat-icon *ngIf="lastTimeEntriesJobLog.status === 'successful' && lastTimeEntriesJobLog.errors.length === 0" fontSet="material-icons-outlined"
             matTooltip="Succesfully completed" #successfultooltip="matTooltip">check
           </mat-icon>
-          <mat-icon *ngIf="lastTimeEntriesJobLog.status === 'unsuccessful'" fontSet="material-icons-outlined"
-            matTooltip="There was some error" #unsuccessfultooltip="matTooltip">
+          <mat-icon *ngIf="lastTimeEntriesJobLog.status === 'unsuccessful' || lastTimeEntriesJobLog.errors.length > 0" fontSet="material-icons-outlined"
+            [matTooltip]="JobLog.getDistinctErrorFields(this.lastTimeEntriesJobLog)" #unsuccessfultooltip="matTooltip">
             error_outline
           </mat-icon>
         </span>
