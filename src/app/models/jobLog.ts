@@ -19,11 +19,11 @@ export class JobLog {
       new Set(
         jobLog.errors
           .map(error => {
-            if (error.exception?.status === 403 || error.exception?.status === 401)
+            if (!error.data || error.exception?.status === 403 || error.exception?.status === 401)
               return error.specification;
             const objectId = error.data.objectId === null ? "" : "Object with ID " + error.data.objectId;
-            const additionalInfo = error.data.objectExtraInformation.length === 0 ? "" : " (" + error.data.objectExtraInformation.join(", ") + ")";
-            const apiErrors = error.data.responseErrors.length === 0 ? "" : " - [" + error.data.responseErrors.join(", ") + "]";
+            const additionalInfo = error.data.objectExtraInformation?.length === 0 ? "" : " (" + error.data.objectExtraInformation.join(", ") + ")";
+            const apiErrors = error.data.responseErrors?.length === 0 ? "" : " - [" + error.data.responseErrors.join(", ") + "]";
             return error.data.service + " failed - " + objectId + additionalInfo + apiErrors;
           })
           .filter(data => data !== undefined)
