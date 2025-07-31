@@ -39,10 +39,10 @@
         fontSet="material-icons-outlined" matTooltip="Scheduled or running" #scheduledorrunningtooltip="matTooltip">
         sync
       </mat-icon>
-      <mat-icon *ngIf="jobLog.status === 'successful'" fontSet="material-icons-outlined"
+      <mat-icon *ngIf="jobLog.status === 'successful' && jobLog.errors.length === 0" fontSet="material-icons-outlined"
         matTooltip="Succesfully completed" #successfultooltip="matTooltip">check</mat-icon>
-      <mat-icon *ngIf="jobLog.status === 'unsuccessful'" fontSet="material-icons-outlined"
-        matTooltip="There was some error" #unsuccessfultooltip="matTooltip">error_outline</mat-icon>
+      <mat-icon *ngIf="jobLog.status === 'unsuccessful' || jobLog.errors.length > 0" fontSet="material-icons-outlined"
+        [matTooltip]="JobLog.getDistinctErrorFields(jobLog)">error_outline</mat-icon>
     </div>
   </div>
 </section>

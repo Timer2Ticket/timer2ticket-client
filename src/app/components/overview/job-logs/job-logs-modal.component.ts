@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Utilities } from 'src/app/utilities/utilities';
+import {JobLog} from "../../../models/jobLog";
 
 @Component({
   selector: 'app-job-logs-modal',
@@ -15,4 +16,5 @@ export class JobLogsModalComponent {
     public dialogRef: MatDialogRef<JobLogsModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data) { }
 
+  protected readonly JobLog = JobLog;
 }

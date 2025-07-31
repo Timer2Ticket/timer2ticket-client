@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, SecurityContext } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { interval, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AppComponent } from 'src/app/app.component';
 import { JobLog } from 'src/app/models/jobLog';
 import { User } from 'src/app/models/user';
@@ -76,7 +76,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
           this.errorCommunicatingWithCore = false;
 
           this._appData.setUser(this.user);
-        }, (error) => {
+        }, (_) => {
           this._jobRequestError();
         });
 
@@ -113,7 +113,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
         this.app.buildNotification('Config job unfortunately NOT scheduled. Some sync server issues occured, please try it again after a while.', 8);
         this.errorCommunicatingWithCore = true;
       }
-    }, (error) => {
+    }, (_) => {
       this._jobRequestError();
     });
   }
@@ -172,7 +172,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
       this.errorCommunicatingWithCore = false;
 
       this._appData.setUser(this.user);
-    }, (error) => {
+    }, (_) => {
       this._jobRequestError();
     });
   }
@@ -189,7 +189,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
       this.errorCommunicatingWithCore = false;
 
       this._appData.setUser(this.user);
-    }, (error) => {
+    }, (_) => {
       this._jobRequestError();
     });
   }
@@ -229,7 +229,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
         if (this._jobLogsModal?.componentInstance) {
           this._jobLogsModal.componentInstance.data = { jobLogs: this.jobLogs, };
         }
-      }, (error) => {
+      }, (_) => {
         // provide info about error? - not needed
       });
     };
@@ -239,4 +239,6 @@ export class OverviewComponent implements OnInit, OnDestroy {
     // and set interval to call again each 10 seconds
     this._jobLogsIntervalHandler = setInterval(intervalFunction, 10000);
   }
+
+  protected readonly JobLog = JobLog;
 }
